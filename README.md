@@ -15,6 +15,6 @@ If use in projects is your goal there are a lot of other more efficient and thou
 Python already has a python library with hash functions - hashlib.
 
 ## Dependancies
-All implementations are in Python >= 3.11
-Libraries:
+All implementations are in Python >= 3.11\
+Libraries:\
 numpy 2.3.3
