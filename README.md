@@ -11,3 +11,5 @@ You put text in you get text out and you cant reverse the process. Thats what a 
 ## Should you use it?
 Detail and ease of reading are priorities when making these programs and as such efficiency is most sertainly lacking in these implementations.
 If use in projects is your goal there are a lot of other more efficient and thought out implementations of this algorithm I am sure you can find.
+
+Python already has a python library with hash functions - hashlib.
