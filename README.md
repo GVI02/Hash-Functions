@@ -2,7 +2,9 @@
 
 ## What is this?
 Python implementation of various hash functions.\
-SHA-1 according to RFC3174 -> [https://datatracker.ietf.org/doc/html/rfc3174](url)
+SHA-1 according to RFC3174 -> [https://datatracker.ietf.org/doc/html/rfc3174](url)\
+
+All implementations are in Python >= 3.11
 
 ## Why does it exist?
 For how prevelent hash functions are in all aspects of Computer Science they always seem to be presented as a magical black box.
