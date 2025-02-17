@@ -2,19 +2,6 @@ from numpy import uint8, uint32, uint64
 from binascii import hexlify
 
 
-def print_bytes(list_of_bytes: list[uint8]):
-    """Helper function to print a list of 8bit integers as 32-bit words"""
-    out = []
-    for i in range(0, len(list_of_bytes) - 3, 4):
-        b1 = f"{list_of_bytes[i    ]:02X}"
-        b2 = f"{list_of_bytes[i + 1]:02X}"
-        b3 = f"{list_of_bytes[i + 2]:02X}"
-        b4 = f"{list_of_bytes[i + 3]:02X}"
-
-        out.append(f"{b1}{b2}{b3}{b4}")
-    print(" ".join(out))
-
-
 def print_words(list_of_words: list[uint32]):
     """Helper function to print a list of 32-bit words"""
     print(" ".join([f"{word:08X}" for word in list_of_words]))
@@ -32,15 +19,16 @@ def blocks(words: list) -> list:
         yield words[i:i + 16]
 
 
-def leftrotate(X: uint32, n: int):
-    return uint32((X << n) | (X >> 32 - n))
+def leftrotate(x: uint32, n: int):
+    """"Rotates the first @n bits from @x.\n101000 -> 000101"""
+    return uint32((x << n) | (x >> 32 - n))
 
 
 def sha1(text: str) -> str:
     """
     Implementation of SHA-1 algorithm as specified in RFC3174.\n
     Input: String to be hashed.\n
-    Output: 160-bit (20 byte) hash in the form of a string.\n
+    Output: 160-bit (20 byte) hash in the form of a hex string.\n
     Text encoding is assumed to be UTF-8.
     """
 
@@ -138,6 +126,8 @@ def sha1(text: str) -> str:
         D = H3
         E = H4
 
+        # Create additional words for the given block so every round of t has its own value.
+        # 16 from the padded message + 64 additional words = 80 values in total
         for t in range(16, 80):
             W.append(leftrotate(
                 W[t - 3] ^ W[t - 8] ^ W[t - 14] ^ W[t - 16],
@@ -185,8 +175,3 @@ def sha1(text: str) -> str:
         result.append(uint8(H_buffer & 0x000000FF))
 
     return hexlify(result).decode("utf-8")
-
-
-if __name__ == '__main__':
-    message = "qdwqdwqdqw"
-    print(sha1(message))
